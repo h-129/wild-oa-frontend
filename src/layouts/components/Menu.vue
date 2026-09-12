@@ -7,18 +7,21 @@
         @select="handleSelect"
     >
       <template v-for="(item,index) in menuList" :key="index">
-        <!--        可以包含子菜单-->
+        <!-- 包含子菜单 -->
         <el-sub-menu v-if="item.children&&item.children.length>0" :index="item.name">
           <template v-slot:title>
             <el-icon>
-              <component :is="item.icon"/>
+              <!-- 判断：如果图标名字带冒号(如 lucid:settings)说明是 Iconic，否则当成 ElementPlus 组件 -->
+              <Icon v-if="item.icon && item.icon.includes(':')" :icon="item.icon"/>
+              <component :is="item.icon" v-else/>
             </el-icon>
             <span>{{ item.name }}</span>
           </template>
           <!--          遍历子菜单构建-->
           <el-menu-item v-for="(item2,index2) in item.children" :key="index2" :index="item2.path">
             <el-icon>
-              <component :is="item2.icon"/>
+              <Icon v-if="item2.icon && item2.icon.includes(':')" :icon="item2.icon"/>
+              <component :is="item2.icon" v-else/>
             </el-icon>
             <span> {{ item2.name }}</span>
           </el-menu-item>
@@ -27,7 +30,8 @@
         <el-menu-item v-else :index="item.path">
           <template v-slot:title>
             <el-icon>
-              <component :is="item.icon"></component>
+              <Icon v-if="item.icon && item.icon.includes(':')" :icon="item.icon"/>
+              <component :is="item.icon" v-else/>
             </el-icon>
             <span>{{ item.name }}</span>
           </template>

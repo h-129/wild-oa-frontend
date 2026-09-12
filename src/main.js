@@ -10,12 +10,16 @@ import "element-plus/dist/index.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import "nprogress/nprogress.css"
 import "./permission.js" //导入路由权限
+// 引入 Iconic 的 Vue 组件
+import {Icon} from '@iconify/vue'
 //导入自定义指令
 import permission from "@/directives/permission.js"
 
 const app = createApp(App);
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate)
+// 全局注册 Iconic 组件
+app.component('Icon', Icon)
 //使用路由
 app.use(router);
 //使用pinia

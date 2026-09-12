@@ -24,7 +24,9 @@
         <el-table-column align="center" label="图标" prop="icon" width="80">
           <template #default="{ row }">
             <el-icon v-if="row.icon">
-              <component :is="row.icon"/>
+              <!-- 判断：如果图标名字带冒号(如 lucid:settings)说明是 Iconify，否则当成 ElementPlus 组件 -->
+              <Icon v-if="row.icon && row.icon.includes(':')" :icon="row.icon"/>
+              <component :is="row.icon" v-else/>
             </el-icon>
           </template>
         </el-table-column>
